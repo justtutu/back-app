@@ -1,0 +1,27 @@
+### 用户注册
+POST http://localhost:3000/user/register
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "123456",
+  "phone": "13800138000",
+  "avatar": "https://example.com/avatar.jpg"
+}
+
+### 用户登录
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+  "username": "testuser",
+  "password": "123456"
+}
+
+### 获取用户信息 (需要替换为实际的token)
+GET http://localhost:3000/user/profile/me
+Authorization: Bearer YOUR_TOKEN_HERE
+
+### 退出登录 (需要替换为实际的token)
+POST http://localhost:3000/user/logout
+Authorization: Bearer YOUR_TOKEN_HERE 
