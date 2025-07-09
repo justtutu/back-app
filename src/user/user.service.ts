@@ -52,7 +52,10 @@ export class UserService {
   }
 
   /** 更新用户 */
-  async updateUser(id: string, updateUserDto: UpdateUserDto): Promise<User | null> {
+  async updateUser(
+    id: string,
+    updateUserDto: UpdateUserDto,
+  ): Promise<User | null> {
     await this.userRepository.update(id, updateUserDto);
     return this.findById(id);
   }
@@ -63,7 +66,9 @@ export class UserService {
   }
 
   /** 用户注册 */
-  async register(createUserDto: CreateUserDto): Promise<{ success: boolean; data: { msg: string; id?: string } }> {
+  async register(
+    createUserDto: CreateUserDto,
+  ): Promise<{ success: boolean; data: { msg: string; id?: string } }> {
     // 检查用户名或手机号是否已存在
     const exist = await this.userRepository.findOne({
       where: [
@@ -74,7 +79,7 @@ export class UserService {
     if (exist) {
       return ResponseUtil.error('用户名或手机号已存在');
     }
-    
+
     // 加密密码
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
     const user = this.userRepository.create({
@@ -108,11 +113,11 @@ export class UserService {
       return ResponseUtil.error('手机号错误');
     }
 
-    console.log('loginUserDto.password:', loginUserDto.password);
-    console.log('user.password:', user.password);
-
     // 验证密码
-    const isPasswordValid = await bcrypt.compare(loginUserDto.password, user.password);
+    const isPasswordValid = await bcrypt.compare(
+      loginUserDto.password,
+      user.password,
+    );
     if (!isPasswordValid) {
       return ResponseUtil.error('密码错误');
     }
@@ -163,7 +168,9 @@ export class UserService {
   }
 
   /** 退出登录 */
-  async logout(userId: string): Promise<{ success: boolean; data: { msg: string } }> {
+  async logout(
+    userId: string,
+  ): Promise<{ success: boolean; data: { msg: string } }> {
     await this.userRepository.update(userId, {
       token: undefined,
       tokenExpiresAt: undefined,
@@ -171,4 +178,4 @@ export class UserService {
 
     return ResponseUtil.success(undefined, '退出登录成功');
   }
-} 
+}

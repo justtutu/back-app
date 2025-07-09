@@ -18,12 +18,19 @@ export class BorrowRecordSeeder implements Seeder {
       console.log('用户或图书数据为空，无法生成借阅记录');
       return;
     }
-    const statusArr = [BorrowStatus.BORROWED, BorrowStatus.RETURNED, BorrowStatus.OVERDUE];
+    const statusArr = [
+      BorrowStatus.BORROWED,
+      BorrowStatus.RETURNED,
+      BorrowStatus.OVERDUE,
+    ];
     const records: Partial<BorrowRecord>[] = [];
     for (let i = 0; i < 50; i++) {
       const user = faker.helpers.arrayElement(users);
       const book = faker.helpers.arrayElement(books);
-      const borrowDate = faker.date.between({ from: '2023-01-01', to: '2024-06-01' });
+      const borrowDate = faker.date.between({
+        from: '2023-01-01',
+        to: '2024-06-01',
+      });
       const dueDate = faker.date.soon({ days: 30, refDate: borrowDate });
       let returnDate: Date | null = null;
       const status = faker.helpers.arrayElement(statusArr);
@@ -47,4 +54,4 @@ export class BorrowRecordSeeder implements Seeder {
     await borrowRepo.insert(records);
     console.log('已插入50条测试借阅记录');
   }
-} 
+}

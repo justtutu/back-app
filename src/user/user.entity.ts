@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 /**
  * 用户实体
@@ -37,4 +43,4 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
-} 
+}

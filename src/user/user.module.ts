@@ -20,4 +20,4 @@ import { jwtConfig } from '../common/config/jwt.config';
   controllers: [UserController],
   exports: [UserService],
 })
-export class UserModule {} 
+export class UserModule {}

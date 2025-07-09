@@ -15,7 +15,7 @@ export class AppController {
     return {
       message: '测试接口',
       data: { name, age },
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
   }
 
@@ -26,8 +26,8 @@ export class AppController {
       data: {
         id: Math.floor(Math.random() * 1000),
         ...userData,
-        createdAt: new Date().toISOString()
-      }
+        createdAt: new Date().toISOString(),
+      },
     };
   }
 
@@ -39,8 +39,8 @@ export class AppController {
         id,
         name: '测试用户',
         email: 'test@example.com',
-        createdAt: new Date().toISOString()
-      }
+        createdAt: new Date().toISOString(),
+      },
     };
   }
 

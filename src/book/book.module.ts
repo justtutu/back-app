@@ -6,11 +6,17 @@ import { BookController } from './book.controller';
 import { BorrowRecordModule } from '../borrow-record/borrow-record.module';
 import { BorrowRecord } from '../borrow-record/borrow-record.entity';
 import { UserModule } from '../user/user.module';
+import { Favorite } from './favorite.entity';
+import { QiniuService } from '../common/services/qiniu.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Book, BorrowRecord]), BorrowRecordModule, UserModule],
-  providers: [BookService],
+  imports: [
+    TypeOrmModule.forFeature([Book, BorrowRecord, Favorite]),
+    BorrowRecordModule,
+    UserModule,
+  ],
+  providers: [BookService, QiniuService],
   controllers: [BookController],
   exports: [BookService],
 })
-export class BookModule {} 
+export class BookModule {}

@@ -6,12 +6,17 @@ export class ResponseUtil {
    * 成功响应
    */
   static success<T = any>(data?: T, msg: string = '操作成功') {
+    let resp: any = { msg };
+    if (Array.isArray(data)) {
+      resp.data = data;
+    } else if (data && typeof data === 'object') {
+      resp = { ...resp, ...data };
+    } else {
+      resp.data = data ?? null;
+    }
     return {
       success: true,
-      data: {
-        msg,
-        ...(data && typeof data === 'object' ? data : { result: data }),
-      },
+      data: resp,
     };
   }
 
@@ -41,4 +46,4 @@ export class ResponseUtil {
       },
     };
   }
-} 
+}

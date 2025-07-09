@@ -22,7 +22,10 @@ export class BorrowRecordService {
   }
 
   findOne(id: number) {
-    return this.borrowRecordRepository.findOne({ where: { id }, relations: ['user', 'book'] });
+    return this.borrowRecordRepository.findOne({
+      where: { id },
+      relations: ['user', 'book'],
+    });
   }
 
   update(id: number, updateDto: UpdateBorrowRecordDto) {
@@ -32,4 +35,4 @@ export class BorrowRecordService {
   remove(id: number) {
     return this.borrowRecordRepository.delete(id);
   }
-} 
+}

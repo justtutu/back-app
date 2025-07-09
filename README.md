@@ -299,7 +299,7 @@ Authorization: Bearer YOUR_TOKEN_HERE
   "success": true,
   "data": {
     "msg": "操作成功",
-    "result": "数据内容"
+    "data": "数据内容"
   }
 }
 ```
@@ -310,7 +310,7 @@ Authorization: Bearer YOUR_TOKEN_HERE
   "success": false,
   "data": {
     "msg": "错误信息",
-    "result": null
+    "data": null
   }
 }
 ```

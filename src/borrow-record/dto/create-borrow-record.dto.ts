@@ -1,4 +1,10 @@
-import { IsInt, IsDateString, IsOptional, IsEnum, IsString } from 'class-validator';
+import {
+  IsInt,
+  IsDateString,
+  IsOptional,
+  IsEnum,
+  IsString,
+} from 'class-validator';
 import { BorrowStatus } from '../../common/enums';
 
 export class CreateBorrowRecordDto {
@@ -22,4 +28,4 @@ export class CreateBorrowRecordDto {
   @IsOptional()
   @IsString()
   remark?: string;
-} 
+}

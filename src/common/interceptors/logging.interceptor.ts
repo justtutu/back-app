@@ -19,7 +19,7 @@ export class LoggingInterceptor implements NestInterceptor {
     const { method, url, body, query, params, headers } = request;
     const userAgent = headers['user-agent'] || '';
     const ip = headers['x-forwarded-for'] || request.ip || 'unknown';
-    
+
     const startTime = Date.now();
     const timestamp = new Date().toISOString();
 
@@ -80,16 +80,22 @@ export class LoggingInterceptor implements NestInterceptor {
    */
   private sanitizeBody(body: any): any {
     if (!body) return {};
-    
-    const sensitiveFields = ['password', 'token', 'authorization', 'secret', 'key'];
+
+    const sensitiveFields = [
+      'password',
+      'token',
+      'authorization',
+      'secret',
+      'key',
+    ];
     const sanitized = { ...body };
-    
-    sensitiveFields.forEach(field => {
+
+    sensitiveFields.forEach((field) => {
       if (sanitized[field]) {
         sanitized[field] = '***';
       }
     });
-    
+
     return sanitized;
   }
 
@@ -98,16 +104,16 @@ export class LoggingInterceptor implements NestInterceptor {
    */
   private sanitizeQuery(query: any): any {
     if (!query) return {};
-    
+
     const sensitiveFields = ['token', 'key', 'secret'];
     const sanitized = { ...query };
-    
-    sensitiveFields.forEach(field => {
+
+    sensitiveFields.forEach((field) => {
       if (sanitized[field]) {
         sanitized[field] = '***';
       }
     });
-    
+
     return sanitized;
   }
 
@@ -116,16 +122,16 @@ export class LoggingInterceptor implements NestInterceptor {
    */
   private sanitizeParams(params: any): any {
     if (!params) return {};
-    
+
     const sensitiveFields = ['token', 'key', 'secret'];
     const sanitized = { ...params };
-    
-    sensitiveFields.forEach(field => {
+
+    sensitiveFields.forEach((field) => {
       if (sanitized[field]) {
         sanitized[field] = '***';
       }
     });
-    
+
     return sanitized;
   }
-} 
+}

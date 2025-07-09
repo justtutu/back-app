@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('book')
 export class Book {
@@ -23,6 +29,9 @@ export class Book {
   @Column({ length: 512, nullable: true })
   coverUrl: string;
 
+  /**
+   * 图书分类，对应dict表的code（type=category）
+   */
   @Column({ length: 64, nullable: true })
   category: string;
 
@@ -40,4 +49,4 @@ export class Book {
 
   @UpdateDateColumn()
   updatedAt: Date;
-} 
+}

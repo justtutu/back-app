@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+} from '@nestjs/common';
 import { BorrowRecordService } from './borrow-record.service';
 import { CreateBorrowRecordDto } from './dto/create-borrow-record.dto';
 import { UpdateBorrowRecordDto } from './dto/update-borrow-record.dto';
@@ -31,4 +39,4 @@ export class BorrowRecordController {
   remove(@Param('id') id: string) {
     return this.borrowRecordService.remove(Number(id));
   }
-} 
+}

@@ -6,6 +6,9 @@ import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { BookModule } from './book/book.module';
 import { BorrowRecordModule } from './borrow-record/borrow-record.module';
+import { DictModule } from './dict/dict.module';
+import { QiniuService } from './common/services/qiniu.service';
+import { UploadController } from './upload.controller';
 
 @Module({
   imports: [
@@ -23,8 +26,9 @@ import { BorrowRecordModule } from './borrow-record/borrow-record.module';
     UserModule,
     BookModule,
     BorrowRecordModule,
+    DictModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, UploadController],
+  providers: [AppService, QiniuService],
 })
 export class AppModule {}

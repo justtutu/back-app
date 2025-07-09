@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  CreateDateColumn,
+} from 'typeorm';
 import { User } from '../user/user.entity';
 import { Book } from '../book/book.entity';
 import { BorrowStatus } from '../common/enums';
@@ -30,4 +37,4 @@ export class BorrowRecord {
 
   @Column({ type: 'varchar', length: 255, nullable: true })
   remark?: string;
-} 
+}

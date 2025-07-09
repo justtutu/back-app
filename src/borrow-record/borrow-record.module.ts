@@ -10,4 +10,4 @@ import { BorrowRecordController } from './borrow-record.controller';
   controllers: [BorrowRecordController],
   exports: [BorrowRecordService],
 })
-export class BorrowRecordModule {} 
+export class BorrowRecordModule {}
