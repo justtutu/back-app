@@ -389,6 +389,136 @@ src/
 3. 在Controller中添加路由
 4. 使用ResponseUtil统一响应格式
 
+## 后端部署步骤（CentOS环境）
+
+### 1. 服务器准备
+
+- 推荐将项目代码放在 `/home/back-app` 目录。
+- 确保服务器已开放 3000 端口（或你自定义的端口）。
+
+### 2. 安装 Node.js、pnpm、Git（如不使用 Docker 可选）
+
+```bash
+# 安装 Node.js（推荐用 nvm 管理）
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+source ~/.bashrc
+nvm install 18
+nvm use 18
+
+# 安装 pnpm
+npm install -g pnpm
+
+# 安装 Git
+sudo yum install git -y
+```
+
+### 3. 拉取或上传项目代码
+
+- 推荐用 git clone 拉取：
+
+```bash
+cd /opt
+sudo git clone <你的仓库地址> back-app
+cd back-app
+```
+
+- 或用 scp/Xftp/WinSCP 上传本地代码。
+
+### 4. 安装依赖并构建
+
+```bash
+pnpm install
+pnpm run build
+```
+
+
+---
+
+## Docker环境安装与部署
+
+### 1. 安装 Docker（CentOS）
+
+```bash
+sudo yum remove docker \
+                docker-client \
+                docker-client-latest \
+                docker-common \
+                docker-latest \
+                docker-latest-logrotate \
+                docker-logrotate \
+                docker-engine
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum install -y docker-ce docker-ce-cli containerd.io
+sudo systemctl start docker
+sudo systemctl enable docker
+# 验证安装
+docker --version
+```
+
+### 2. 编写 Dockerfile
+
+在 `back-app` 目录下新建 `Dockerfile`：
+
+```dockerfile
+FROM node:18
+WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN npm install -g pnpm
+RUN pnpm install
+COPY . .
+RUN pnpm run build
+EXPOSE 3000
+CMD ["node", "dist/main.js"]
+```
+
+### 3. 编写 .dockerignore（推荐）
+
+```
+node_modules
+dist
+.git
+.idea
+.history
+test
+*.log
+```
+
+### 4. 构建镜像
+
+```bash
+docker build -t back-app .
+```
+
+### 5. 服务器准备 .env 文件
+
+- 在 `/home/back-app` 目录下手动创建 `.env` 文件（不要 COPY 进镜像）：
+
+```
+PORT=3000
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASS=yourpassword
+DB_NAME=yourdb
+```
+
+### 6. 运行容器
+
+```bash
+docker run -d --name back-app -p 3000:3000 --env-file .env back-app
+```
+
+### 7. 常用命令
+
+- 查看日志：`docker logs -f back-app`
+- 重启容器：`docker restart back-app`
+- 停止容器：`docker stop back-app`
+- 删除容器：`docker rm -f back-app`
+- 查看所有容器：`docker ps -a`
+
+---
+
 ## 许可证
 
 MIT License
